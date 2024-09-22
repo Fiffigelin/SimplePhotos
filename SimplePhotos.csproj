@@ -11,7 +11,30 @@
     <PublishProfile>win-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Assets\Samples\1.jpg" />
+    <Content Remove="Assets\Samples\10.jpg" />
+    <Content Remove="Assets\Samples\11.jpg" />
+    <Content Remove="Assets\Samples\12.jpg" />
+    <Content Remove="Assets\Samples\13.jpg" />
+    <Content Remove="Assets\Samples\14.jpg" />
+    <Content Remove="Assets\Samples\15.jpg" />
+    <Content Remove="Assets\Samples\16.jpg" />
+    <Content Remove="Assets\Samples\17.jpg" />
+    <Content Remove="Assets\Samples\18.jpg" />
+    <Content Remove="Assets\Samples\19.jpg" />
+    <Content Remove="Assets\Samples\2.jpg" />
+    <Content Remove="Assets\Samples\20.jpg" />
+    <Content Remove="Assets\Samples\3.jpg" />
+    <Content Remove="Assets\Samples\4.jpg" />
+    <Content Remove="Assets\Samples\5.jpg" />
+    <Content Remove="Assets\Samples\6.jpg" />
+    <Content Remove="Assets\Samples\7.jpg" />
+    <Content Remove="Assets\Samples\8.jpg" />
+    <Content Remove="Assets\Samples\9.jpg" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
