@@ -7,11 +7,15 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -20,10 +24,37 @@ namespace SimplePhotos
 {
     public sealed partial class MainWindow : Window
     {
+
+        public ObservableCollection<ImageFileInfo> Images { get; } = 
+            new ObservableCollection<ImageFileInfo>(); 
         public MainWindow()
         {
             this.InitializeComponent();
+            GetItemsAsync();
         }
 
+        private async Task GetItemsAsync()
+        {
+            StorageFolder appInstalledFolder = Package.Current.InstalledLocation;
+            StorageFolder picturesFolder = await appInstalledFolder.GetFolderAsync("Assets\\Samples");
+
+            var result = picturesFolder.CreateFileQueryWithOptions(new Windows.Storage.Search.QueryOptions());
+
+            IReadOnlyList<StorageFile> imageFiles = await result.GetFilesAsync();
+            foreach (StorageFile file in imageFiles)
+            {
+                Images.Add(await LoadImageInfoAsync(file));
+            }
+
+            ImageGridView.ItemsSource = Images;
+        }
+
+        public async static Task<ImageFileInfo> LoadImageInfoAsync(StorageFile file)
+        {
+            var properties = await file.Properties.GetImagePropertiesAsync();
+            ImageFileInfo info = new(properties, file, file.DisplayName, file.DisplayType);
+
+            return info;
+        }
     }
 }
